@@ -23,6 +23,7 @@ export function ContactForm() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    if (status === "error") setStatus("idle");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,14 +31,14 @@ export function ContactForm() {
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus("error");
-      setErrorMessage("Please fill out all required fields.");
+      setErrorMessage("Veuillez remplir tous les champs obligatoires (Nom, Email, Message).");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
       setStatus("error");
-      setErrorMessage("Please enter a valid email address.");
+      setErrorMessage("Veuillez saisir une adresse email valide.");
       return;
     }
 
@@ -58,11 +59,11 @@ export function ContactForm() {
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         setStatus("error");
-        setErrorMessage(data.message || "Something went wrong. Please try again.");
+        setErrorMessage(data.message || "Une erreur est survenue lors de l'envoi du message.");
       }
     } catch {
       setStatus("error");
-      setErrorMessage("Network error. Please try sending a direct email.");
+      setErrorMessage("Erreur réseau. Impossible d'envoyer le message pour le moment.");
     }
   };
 
