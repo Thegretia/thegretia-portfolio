@@ -9,7 +9,7 @@ export const projects: CaseStudy[] = [
     featured: true,
     summary:
       "A high-performance multilingual Automatic Speech Recognition (ASR) and Neural Machine Translation (NMT) platform designed specifically for under-represented African languages, achieving high transcription accuracy and low-latency inference.",
-    role: "Lead AI & ML Engineer",
+    role: "Lead Data & AI Engineer",
     timeline: "6 Months • 2025",
     technologies: [
       "PyTorch",
@@ -123,14 +123,14 @@ export const projects: CaseStudy[] = [
     },
   },
   {
-    slug: "cloud-scale-lakehouse-etl",
-    title: "Cloud-Scale Lakehouse ETL Pipeline",
+    slug: "KIYANZA",
+    title: "KIYANZA - Plateforme d'optimisation et de suivi des strategies de communication",
     tagline: "Medallion architecture on Azure Databricks, PySpark, and Delta Lake",
     category: "Data Engineering",
     featured: true,
     summary:
       "An enterprise-grade Lakehouse data pipeline ingesting multi-source transactional and telemetry data into Bronze, Silver, and Gold Delta Lake tables with automated schema enforcement, dbt transformations, and data quality observability.",
-    role: "Lead Data Engineer & Architect",
+    role: "Lead Data & AI Engineer",
     timeline: "8 Months • 2024 - 2025",
     technologies: [
       "Azure Databricks",

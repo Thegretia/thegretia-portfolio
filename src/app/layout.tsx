@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   keywords: [
     "Patrick Thomas MBONJO ETIA",
     "Thegretia",
-    "thegreatia",
+    "thegretia",
     "Data Engineer",
     "AI Engineer",
     "Machine Learning Engineer",

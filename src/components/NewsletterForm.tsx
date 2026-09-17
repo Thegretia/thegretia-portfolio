@@ -12,9 +12,18 @@ export function NewsletterForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) {
+    const trimmedEmail = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!trimmedEmail) {
       setStatus("error");
-      setErrorMessage("Please provide a valid email address.");
+      setErrorMessage("Veuillez saisir votre adresse email.");
+      return;
+    }
+
+    if (!emailRegex.test(trimmedEmail)) {
+      setStatus("error");
+      setErrorMessage("Veuillez fournir une adresse email valide.");
       return;
     }
 
@@ -25,7 +34,7 @@ export function NewsletterForm() {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: trimmedEmail }),
       });
 
       const data = await res.json();
@@ -35,25 +44,27 @@ export function NewsletterForm() {
         setEmail("");
       } else {
         setStatus("error");
-        setErrorMessage(data.message || "Something went wrong. Please try again.");
+        setErrorMessage(
+          data.message || "Une erreur est survenue. Veuillez réessayer."
+        );
       }
     } catch {
       setStatus("error");
-      setErrorMessage("Network error. Please check your connection.");
+      setErrorMessage("Erreur réseau. Veuillez vérifier votre connexion.");
     }
   };
 
   return (
     <div className="w-full">
       {status === "success" ? (
-        <div className="flex items-center gap-3 rounded-lg border border-emerald-800/60 bg-emerald-950/40 p-4 text-emerald-300">
+        <div className="flex items-center gap-3 rounded-lg border border-emerald-800/60 bg-emerald-950/40 p-4 text-emerald-300 animate-in fade-in duration-300">
           <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-400" />
           <div className="text-sm">
             <p className="font-semibold text-emerald-200">
-              Subscription confirmed!
+              Merci pour votre inscription !
             </p>
-            <p className="text-emerald-400/80 text-xs">
-              You will receive deep dives into Data Engineering & AI systems.
+            <p className="text-emerald-400/80 text-xs mt-0.5">
+              Vous recevrez régulièrement nos analyses sur le Data & AI Engineering.
             </p>
           </div>
         </div>
@@ -63,9 +74,12 @@ export function NewsletterForm() {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="engineer@company.com"
-              aria-label="Email address for newsletter"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (status === "error") setStatus("idle");
+              }}
+              placeholder="votre.email@exemple.com"
+              aria-label="Adresse email pour la newsletter"
               required
               disabled={status === "loading"}
               className="flex-1 rounded-lg border border-slate-800 bg-surface-100 px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-60 transition-colors"
@@ -78,7 +92,7 @@ export function NewsletterForm() {
               {status === "loading" ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Joining...</span>
+                  <span>Envoi...</span>
                 </>
               ) : (
                 <>
@@ -100,3 +114,4 @@ export function NewsletterForm() {
     </div>
   );
 }
+

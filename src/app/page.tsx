@@ -118,13 +118,13 @@ export default function HomePage() {
             </Link>
 
             <a
-              href="https://github.com/thegreatia"
+              href="https://github.com/Thegretia"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg bg-surface border border-slate-800 px-4 py-3 text-sm text-slate-400 hover:text-white hover:border-slate-700 transition-all"
             >
               <GithubIcon className="h-4 w-4" />
-              <span className="font-mono text-xs">thegreatia</span>
+              <span className="font-mono text-xs">Thegretia</span>
             </a>
           </div>
 

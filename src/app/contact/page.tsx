@@ -31,7 +31,7 @@ export default function ContactPage() {
 
               <div className="space-y-4">
                 <a
-                  href="mailto:thomsp2001@gmail.com"
+                  href="mailto:thomsp2001@gmail.com?subject=Contact%20depuis%20le%20Portfolio"
                   className="flex items-start gap-3 p-3.5 rounded-xl border border-slate-800 bg-surface-100/60 hover:border-emerald-500/40 hover:bg-surface-100 transition-all group"
                 >
                   <div className="p-2 rounded-lg bg-surface border border-slate-700 text-emerald-400 group-hover:border-emerald-500/50">
