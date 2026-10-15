@@ -12,6 +12,7 @@ import {
   AlertTriangle,
   Sparkles,
   Workflow,
+  Award,
 } from "lucide-react";
 
 interface CaseStudyPageProps {
@@ -83,6 +84,12 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             <Badge variant={getBadgeVariant(project.category)} size="md">
               {project.category}
             </Badge>
+            {project.award && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1 rounded-full bg-amber-950/70 border border-amber-600/50 text-amber-300 shadow-sm">
+                <Award className="h-3.5 w-3.5 text-amber-400" />
+                <span>{project.award}</span>
+              </span>
+            )}
             <span className="text-xs font-mono text-slate-500">
               Role: <span className="text-slate-300 font-semibold">{project.role}</span>
             </span>

@@ -2,6 +2,124 @@ import { CaseStudy } from "@/lib/types";
 
 export const projects: CaseStudy[] = [
   {
+    slug: "kiyanza",
+    title: "Kiyanza — Plateforme SaaS d'Intelligence Média & Monitoring Multimodal",
+    tagline: "Plateforme SaaS de veille média par IA multimodale • 1er Prix Orange Summer Challenge 2026",
+    category: "AI & ML",
+    featured: true,
+    award: "1er Prix • Orange Summer Challenge 2026",
+    summary:
+      "Une plateforme SaaS intelligente de veille et monitoring média en continu alimentée par l'IA. Elle ingère, transcrit et analyse sémantiquement des flux hétérogènes (radio, TV, presse numérique, réseaux sociaux) en temps réel pour détecter tendances, sentiments et signaux faibles d'opinion publique.",
+    role: "Lead Data & AI Engineer",
+    timeline: "Orange Summer Challenge 2026 • 1er Prix",
+    technologies: [
+      "Python 3.12",
+      "Whisper (ASR)",
+      "Hugging Face Transformers",
+      "FastAPI",
+      "Docker",
+      "PostgreSQL & pgvector",
+      "Voice Activity Detection (VAD)",
+      "Redis Streams",
+    ],
+    githubUrl: "https://github.com/Thegretia/kiyanza",
+    liveUrl: "https://kiyanza.thegretia.dev",
+    metrics: [
+      {
+        label: "Orange Summer Challenge",
+        value: "1er Prix",
+        description: "Vainqueur du concours parmi des dizaines d'équipes innovantes devant le jury d'Orange",
+      },
+      {
+        label: "Latence de Traitement",
+        value: "< 3 min",
+        description: "Délai de bout en bout entre la diffusion live et les insights sémantiques indexés",
+      },
+      {
+        label: "Précision NER (F1)",
+        value: "89.4%",
+        description: "Extraction fiable des marques, institutions, personnalités publiques et lieux",
+      },
+      {
+        label: "Modalités Analysées",
+        value: "Audio + Texte",
+        description: "Transcription acoustique robuste, analyse de polarité et détection de signaux faibles",
+      },
+    ],
+    challenge: {
+      context:
+        "La veille et l'analyse continue des médias génèrent des volumes massifs de données non structurées et volatiles (émissions radio/TV, articles, réseaux sociaux). Les processus manuels sont incapables de passer à l'échelle, et les outils traditionnels ignorent la parole diffusée sur les ondes audiovisuelles.",
+      coreProblem:
+        "Concevoir une architecture d'ingestion haute cadence et une chaîne d'inférence IA temps réel capable de traiter des flux audio continus et bruités sans explosion des coûts de calcul, tout en fournissant des alertes instantanées de réputation, des graphes d'entités et des résumés automatisés.",
+      objectives: [
+        "Développer un pipeline d'ingestion multi-sources résilient pour les flux audio streaming et les flux RSS/Web.",
+        "Optimiser le moteur Speech-to-Text (Whisper) avec détection d'activité vocale (VAD) pour réduire la latence d'inférence.",
+        "Déployer des modèles NLP pour l'extraction d'entités (NER), l'analyse de sentiment et le résumé automatique.",
+        "Construire une API asynchrone robuste et des microservices conteneurisés pour la consommation en temps réel.",
+      ],
+    },
+    systemArchitecture: {
+      overview:
+        "Architecture événementielle découplée et conteneurisée combinant un pré-traitement audio intelligent (VAD, normalisation acoustique), un cluster d'inférence neuronale (Whisper + Transformers), une indexation vectorielle/sémantique et une API haute concurrence sous FastAPI.",
+      diagramDescription:
+        "Flux Médias Live (Radio/TV/Web) → Ingestion & Buffer Asynchrone → Découpage VAD & Filtrage Spectral → Moteur ASR Whisper Quantifié → Pipeline NLP (NER + Sentiment + Résumé) → Indexation Sémantique (PostgreSQL/pgvector) → API FastAPI & Dashboard SaaS Temps Réel",
+      steps: [
+        {
+          stepNumber: 1,
+          title: "Ingestion Multi-Sources & Découpage Audio VAD",
+          description:
+            "Conception d'un pipeline d'ingestion asynchrone sous Python absorbant les flux en direct. Intégration d'un module de Voice Activity Detection (VAD) éliminant les blancs et silences afin de réduire de plus de 40% la charge d'inférence en aval.",
+          tech: ["Python 3.12", "Torchaudio", "Librosa", "Asyncio"],
+        },
+        {
+          stepNumber: 2,
+          title: "Moteur de Transcription Acoustique (Whisper ASR)",
+          description:
+            "Déploiement d'un modèle Whisper optimisé pour transcrire fidèlement les émissions radio et débats en direct, résistant aux bruits de fond radiophoniques, interférences et variations d'accents régionaux.",
+          tech: ["Whisper", "PyTorch", "Hugging Face", "ONNX Runtime"],
+        },
+        {
+          stepNumber: 3,
+          title: "Chaîne NLP Multimodale : NER, Sentiments & Résumés",
+          description:
+            "Mise en œuvre de pipelines de transformeurs pour identifier les entités clés (personnalités politiques, entreprises, marques), mesurer la tonalité émotionnelle des interventions et générer des synthèses thématiques exécutives.",
+          tech: ["Hugging Face Transformers", "Spacy / Stanza", "FastAPI"],
+        },
+        {
+          stepNumber: 4,
+          title: "Indexation Vectorielle, API Temps Réel & Déploiement",
+          description:
+            "Stockage des métadonnées et embeddings vectoriels pour permettre des recherches sémantiques instantanées. Exposition via une API asynchrone FastAPI conteneurisée sous Docker avec WebSockets pour les alertes en direct.",
+          tech: ["PostgreSQL", "pgvector", "Docker", "FastAPI", "Redis"],
+        },
+      ],
+    },
+    technicalObstacles: [
+      {
+        obstacle:
+          "Latence d'inférence critique et saturation des ressources GPU lors du traitement continu de flux audio 24/7.",
+        solution:
+          "Implémentation d'une couche amont de Voice Activity Detection (VAD) pour éliminer les silences et jingles (-40% de charge audio), couplée à une quantification des poids du modèle pour accélérer le débit de traitement.",
+      },
+      {
+        obstacle:
+          "Dégradation du taux de reconnaissance (WER) sur les flux radio en direct due aux bruits de fond, interférences et chevauchements de paroles.",
+        solution:
+          "Application d'un filtrage spectral de pré-accentuation et de débruitage audio avant tokenisation, garantissant une cohérence d'extraction des entités même dans des conditions acoustiques difficiles.",
+      },
+    ],
+    impactAndResults: {
+      summary:
+        "Kiyanza a prouvé la viabilité technique et l'impact marché d'une solution d'intelligence média de nouvelle génération, remportant le 1er Prix de l'Orange Summer Challenge 2026 face à des dizaines d'équipes de haut niveau.",
+      keyPoints: [
+        "Vainqueur / 1er Prix de l'Orange Summer Challenge (OSC) 2026, salué par le jury d'experts industriels et télécoms d'Orange.",
+        "Pipeline temps réel transformant un signal audiovisuel brut en intelligence sémantique exploitable en moins de 3 minutes.",
+        "Précision d'extraction d'entités supérieure à 89%, permettant une cartographie fine des acteurs clés et de leur réputation.",
+        "Architecture modulaire et conteneurisée démontrant un fort potentiel pour une commercialisation SaaS B2B.",
+      ],
+    },
+  },
+  {
     slug: "akilang-speech-translation",
     title: "Akilang Speech & Translation Engine",
     tagline: "Low-resource African languages ASR and Neural Machine Translation system",
@@ -123,8 +241,8 @@ export const projects: CaseStudy[] = [
     },
   },
   {
-    slug: "KIYANZA",
-    title: "KIYANZA - Plateforme d'optimisation et de suivi des strategies de communication",
+    slug: "azure-databricks-lakehouse",
+    title: "Enterprise Lakehouse Data Platform on Azure Databricks & Delta Lake",
     tagline: "Medallion architecture on Azure Databricks, PySpark, and Delta Lake",
     category: "Data Engineering",
     featured: true,

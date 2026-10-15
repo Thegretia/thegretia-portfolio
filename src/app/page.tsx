@@ -4,6 +4,9 @@ import { blogPosts } from "@/content/blog";
 import { Badge } from "@/components/ui/Badge";
 import { formatDate } from "@/lib/utils";
 import { GithubIcon } from "@/components/icons";
+import { InteractiveHero } from "@/components/InteractiveHero";
+import { KiyanzaBentoCard } from "@/components/KiyanzaBentoCard";
+import { AkilangBentoCard } from "@/components/AkilangBentoCard";
 import {
   Database,
   Cpu,
@@ -13,10 +16,15 @@ import {
   Sparkles,
   BookOpen,
   Flame,
+  Award,
+  Radio,
+  Zap,
 } from "lucide-react";
 
 export default function HomePage() {
-  const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
+  const secondaryProjects = projects.filter(
+    (p) => p.slug === "azure-databricks-lakehouse" || p.slug === "streaming-fraud-detection"
+  );
   const latestPosts = blogPosts.slice(0, 2);
 
   const competencyMatrix = [
@@ -72,83 +80,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-32 lg:pb-32 border-b border-slate-800/80 bg-grid-pattern">
-        {/* Glow ambient spots */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none" />
-        <div className="absolute top-1/3 right-1/4 h-80 w-80 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none" />
-
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          {/* Identity & Status Pill */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-surface/90 px-3.5 py-1.5 backdrop-blur-md mb-6 shadow-sm">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-xs font-mono text-slate-300">
-              Patrick Thomas MBONJO ETIA • <span className="text-emerald-400 font-semibold">Thegretia</span>
-            </span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-4xl">
-            Architecting <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">Scale-Ready Data</span> & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">AI Systems</span>.
-          </h1>
-
-          {/* Subtitle / Value Pitch */}
-          <p className="mt-6 text-base sm:text-xl text-slate-400 max-w-2xl leading-relaxed">
-            Data Engineer, AI/ML Specialist, and Python Systems Architect. I build high-throughput PySpark Lakehouse pipelines, low-latency deep learning inference engines, and resilient distributed backends.
-          </p>
-
-          {/* CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-200 transition-all font-mono shadow-sm"
-            >
-              <span>Explore Case Studies</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg bg-surface border border-slate-800 px-6 py-3 text-sm font-semibold text-slate-200 hover:text-white hover:border-slate-700 transition-all font-mono"
-            >
-              <span>Get in Touch</span>
-            </Link>
-
-            <a
-              href="https://github.com/Thegretia"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-surface border border-slate-800 px-4 py-3 text-sm text-slate-400 hover:text-white hover:border-slate-700 transition-all"
-            >
-              <GithubIcon className="h-4 w-4" />
-              <span className="font-mono text-xs">Thegretia</span>
-            </a>
-          </div>
-
-          {/* Stat highlights banner */}
-          <div className="mt-14 pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 font-mono">
-            <div className="p-3">
-              <span className="text-xs text-slate-500 block">Daily Data Pipeline</span>
-              <span className="text-2xl font-bold text-white tracking-tight">2.4+ TB</span>
-            </div>
-            <div className="p-3">
-              <span className="text-xs text-slate-500 block">Inference Latency</span>
-              <span className="text-2xl font-bold text-emerald-400 tracking-tight">&lt; 140ms</span>
-            </div>
-            <div className="p-3">
-              <span className="text-xs text-slate-500 block">Streaming Throughput</span>
-              <span className="text-2xl font-bold text-teal-400 tracking-tight">14K txn/s</span>
-            </div>
-            <div className="p-3">
-              <span className="text-xs text-slate-500 block">Availability SLA</span>
-              <span className="text-2xl font-bold text-cyan-400 tracking-tight">99.98%</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Interactive Hero Section */}
+      <InteractiveHero />
 
       {/* Core Competencies / Tech Matrix */}
       <section className="py-16 sm:py-24 border-b border-slate-800/80 bg-surface/30">
@@ -217,105 +150,118 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Projects Section */}
+      {/* Featured Projects Bento Grid */}
       <section className="py-16 sm:py-24 border-b border-slate-800/80">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
-              <div className="inline-flex items-center gap-2 mb-2 text-xs font-mono font-medium uppercase tracking-wider text-teal-400">
+              <div className="inline-flex items-center gap-2 mb-2 text-xs font-mono font-medium uppercase tracking-wider text-amber-400">
                 <Flame className="h-3.5 w-3.5" />
-                <span>Selected Deep Dives</span>
+                <span>Flagship Systems & Awards</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
                 Featured Case Studies
               </h2>
             </div>
             <Link
               href="/projects"
-              className="text-xs font-mono font-semibold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1.5 transition-colors"
+              className="text-xs font-mono font-semibold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1.5 transition-colors group"
             >
-              <span>View All Projects</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <span>View All Systems & Projects</span>
+              <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {featuredProjects.map((project) => (
-              <div
-                key={project.slug}
-                className="group rounded-2xl border border-slate-800/80 bg-surface/60 hover:bg-surface/90 hover:border-slate-700 transition-all duration-300 p-6 flex flex-col justify-between backdrop-blur-sm relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <Badge
-                      variant={
-                        project.category === "Data Engineering"
-                          ? "emerald"
-                          : project.category === "AI & ML"
-                          ? "teal"
-                          : "cyan"
-                      }
-                      size="sm"
-                    >
-                      {project.category}
-                    </Badge>
-                    <span className="text-[11px] font-mono text-slate-500">
-                      {project.timeline}
-                    </span>
-                  </div>
-
-                  <Link href={`/projects/${project.slug}`}>
-                    <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
-                      {project.title}
-                    </h3>
-                  </Link>
-
-                  <p className="mt-2 text-xs text-emerald-400/90 font-mono">
-                    {project.tagline}
-                  </p>
-
-                  <p className="mt-3 text-xs sm:text-sm text-slate-400 line-clamp-3 leading-relaxed">
-                    {project.summary}
-                  </p>
-
-                  <div className="my-4 p-3 rounded-xl bg-surface-100 border border-slate-800 font-mono grid grid-cols-2 gap-2">
-                    {project.metrics.slice(0, 2).map((m, idx) => (
-                      <div key={idx}>
-                        <span className="text-[10px] text-slate-500 block truncate">
-                          {m.label}
-                        </span>
-                        <span className="text-sm font-bold text-white">
-                          {m.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="text-xs font-mono font-semibold text-white hover:text-emerald-300 inline-flex items-center gap-1 transition-colors"
-                  >
-                    <span>Read Deep Dive</span>
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </Link>
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-400 hover:text-white p-1"
-                      aria-label="GitHub Repository"
-                    >
-                      <GithubIcon className="h-4 w-4" />
-                    </a>
-                  )}
-                </div>
+          {/* Asymmetric Modern Bento Grid */}
+          <div className="space-y-6">
+            {/* Row 1: Flagship Kiyanza (2 cols) + Akilang ASR (1 col) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+              <div className="lg:col-span-2">
+                <KiyanzaBentoCard />
               </div>
-            ))}
+              <div className="lg:col-span-1">
+                <AkilangBentoCard />
+              </div>
+            </div>
+
+            {/* Row 2: Secondary Deep Dives (Lakehouse & Fraud Stream) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {secondaryProjects.map((project) => (
+                <div
+                  key={project.slug}
+                  className="group rounded-3xl border border-slate-800/80 bg-surface/60 hover:bg-surface/90 hover:border-slate-700 transition-all duration-300 p-7 flex flex-col justify-between backdrop-blur-xl relative overflow-hidden shadow-xl"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div>
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                      <Badge
+                        variant={
+                          project.category === "Data Engineering"
+                            ? "emerald"
+                            : "teal"
+                        }
+                        size="sm"
+                      >
+                        {project.category}
+                      </Badge>
+                      <span className="text-xs font-mono text-slate-500">
+                        {project.timeline}
+                      </span>
+                    </div>
+
+                    <Link href={`/projects/${project.slug}`}>
+                      <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors flex items-center justify-between gap-2">
+                        <span>{project.title}</span>
+                        <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-emerald-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                      </h3>
+                    </Link>
+
+                    <p className="mt-2 text-xs text-emerald-400/90 font-mono font-medium">
+                      {project.tagline}
+                    </p>
+
+                    <p className="mt-3 text-sm text-slate-400 line-clamp-3 leading-relaxed">
+                      {project.summary}
+                    </p>
+
+                    <div className="my-5 p-3.5 rounded-2xl bg-surface-100/80 border border-slate-800/80 font-mono grid grid-cols-2 gap-3">
+                      {project.metrics.slice(0, 2).map((m, idx) => (
+                        <div key={idx}>
+                          <span className="text-[11px] text-slate-500 block truncate">
+                            {m.label}
+                          </span>
+                          <span className="text-base font-bold text-white">
+                            {m.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.technologies.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="text-xs font-mono font-semibold text-white hover:text-emerald-300 inline-flex items-center gap-1 transition-colors ml-2 shrink-0"
+                    >
+                      <span>Read Deep Dive</span>
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

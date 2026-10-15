@@ -53,6 +53,7 @@ const EXPERIENCES = [
     description:
       "Engineering end-to-end data pipelines for multilingual voice AI systems, specializing in the collection, curation, and preprocessing of audio and linguistic datasets for Speech-to-Text, Machine Translation, and Text-to-Speech models.",
     highlights: [
+      "Grand Winner (1st Prize) of the Orange Summer Challenge (OSC) 2026 with project Kiyanza, recognized for engineering excellence in real-time multimodal media intelligence.",
       "Designed robust ingestion and ETL pipelines in Python to transform raw, heterogeneous speech recordings into clean, model-ready datasets for local languages.",
       "Curated and structured high-quality audio corpora tailored for training Speech-to-Text (STT) and Text-to-Speech (TTS) neural architectures.",
       "Collaborated within a cross-functional team to integrate local language data into scalable production-grade AI solutions.",
@@ -140,8 +141,8 @@ export default function AboutPage() {
               <p>
                 Over the years, I have architected multi-terabyte Lakehouse pipelines on Azure
                 Databricks, engineered low-latency speech recognition and translation engines
-                for under-represented African dialects, and constructed sub-50ms financial
-                streaming anomaly engines.
+                for under-represented African dialects, and developed <strong className="text-amber-300 font-semibold">Kiyanza</strong>,
+                an AI media monitoring SaaS platform awarded the <strong className="text-white font-semibold">1st Prize at the Orange Summer Challenge 2026</strong>.
               </p>
               <p>
                 My engineering philosophy is rooted in{" "}
@@ -160,6 +161,10 @@ export default function AboutPage() {
               <div>
                 <span className="text-slate-500 block">Focus:</span>
                 <span className="text-white font-medium">Data Pipelines & AI Engines</span>
+              </div>
+              <div>
+                <span className="text-slate-500 block">Major Recognition:</span>
+                <span className="text-amber-300 font-medium">1st Prize • Orange Summer Challenge 2026</span>
               </div>
               <div>
                 <span className="text-slate-500 block">Primary Languages:</span>

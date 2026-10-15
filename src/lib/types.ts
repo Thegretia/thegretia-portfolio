@@ -28,6 +28,7 @@ export interface CaseStudy {
   tagline: string;
   category: "Data Engineering" | "AI & ML" | "Software Engineering";
   featured: boolean;
+  award?: string;
   summary: string;
   role: string;
   timeline: string;

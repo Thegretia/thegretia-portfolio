@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CaseStudy, ProjectCategory } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
 import { GithubIcon } from "@/components/icons";
-import { ArrowUpRight, Database, Cpu, Code2, Layers } from "lucide-react";
+import { ArrowUpRight, Database, Cpu, Code2, Layers, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProjectFilterListProps {
@@ -105,12 +105,18 @@ export function ProjectFilterList({ projects }: ProjectFilterListProps) {
             <div>
               {/* Header Meta: Category & Timeline */}
               <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <Badge variant={getBadgeVariant(project.category)} size="sm">
                     {getCategoryIcon(project.category)}
                     <span>{project.category}</span>
                   </Badge>
-                  {project.featured && (
+                  {project.award && (
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-950/60 border border-amber-600/50 text-amber-300 flex items-center gap-1 shadow-sm">
+                      <Award className="h-3 w-3 text-amber-400" />
+                      <span>{project.award}</span>
+                    </span>
+                  )}
+                  {project.featured && !project.award && (
                     <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400/90 font-semibold px-2 py-0.5 rounded bg-amber-950/40 border border-amber-800/40">
                       Featured
                     </span>
