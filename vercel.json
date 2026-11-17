@@ -1,0 +1,22 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/projects", "destination": "/#projets", "permanent": true },
+    { "source": "/projects/:slug*", "destination": "/#projets", "permanent": true },
+    { "source": "/about", "destination": "/#parcours", "permanent": true },
+    { "source": "/blog", "destination": "/#engagement", "permanent": true },
+    { "source": "/blog/:slug*", "destination": "/#engagement", "permanent": true },
+    { "source": "/contact", "destination": "/#contact", "permanent": true },
+    { "source": "/cv.pdf", "destination": "/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf", "permanent": true },
+    { "source": "/resume.pdf", "destination": "/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf", "permanent": true },
+    { "source": "/documents/cv.pdf", "destination": "/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf", "permanent": true },
+    { "source": "/documents/CV_Patrick_Mbonjo_Etia.pdf", "destination": "/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf", "permanent": true },
+    { "source": "/documents/CV_Data_AI_Engineer_MBONJO_ETIA.pdf", "destination": "/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf", "permanent": true },
+    { "source": "/documents/cv%20mbonjo%20etia%20patrick%20thomas.pdf", "destination": "/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf", "permanent": true }
+  ]
+}
