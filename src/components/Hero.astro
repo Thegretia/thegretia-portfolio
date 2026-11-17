@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import photo from '../assets/images/patrick.webp';
+import { identity, stats } from '../data/cv';
+---
+<section id="top" class="hero">
+  <div class="decor glow-top" aria-hidden="true"></div>
+  <div class="decor grid-bg" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <span class="pill"><span class="live" aria-hidden="true"></span> En quête d'un stage professionnel · Data Science & IA</span>
+      <h1>
+        <span class="text-gradient">{identity.firstName}</span><br />
+        <span class="last">{identity.lastName}</span>
+      </h1>
+      <p class="role">{identity.title} <span class="sep">·</span> <a href={identity.gemula} class="accent">{identity.role}</a></p>
+      <p class="lead">{identity.summary}</p>
+      <div class="cta">
+        <a href={identity.cv} class="btn btn-primary" download><Icon name="download" /> Télécharger mon CV</a>
+        <a href="#projets" class="btn btn-ghost">Voir mes projets <Icon name="arrow_forward" /></a>
+      </div>
+      <p class="loc"><Icon name="location_on" /> {identity.location}</p>
+    </div>
+    <div class="portrait">
+      <Image src={photo} alt="Portrait de Patrick Thomas MBONJO ETIA" width={640} height={640} loading="eager" fetchpriority="high" />
+    </div>
+  </div>
+  <div class="container">
+    <dl class="stats">
+      {stats.map((s) => (
+        <div><dt>{s.label}</dt><dd>{s.value}</dd></div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; padding: 128px 0 64px; overflow: hidden; }
+  .decor { position: absolute; inset: 0; pointer-events: none; }
+  .hero-inner { position: relative; display: grid; gap: 48px; align-items: center; }
+  @media (min-width: 900px) { .hero-inner { grid-template-columns: 1.4fr 1fr; gap: 64px; } .hero { padding-top: 160px; } }
+  .live { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px rgba(76,195,138,.2); }
+  h1 { margin-top: 24px; font-size: clamp(2.75rem, 7vw, 4.75rem); line-height: 1.02; letter-spacing: -0.042em; font-weight: 600; }
+  .last { color: var(--muted); font-weight: 500; font-size: .62em; letter-spacing: -0.03em; }
+  .role { margin-top: 20px; font-size: 1.125rem; font-weight: 500; }
+  .sep { color: var(--subtle); }
+  .role a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .lead { max-width: 58ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .loc { display: flex; align-items: center; gap: 6px; margin-top: 24px; color: var(--subtle); font-size: .875rem; }
+  .portrait {
+    position: relative; justify-self: center; width: min(100%, 380px); aspect-ratio: 1;
+    border-radius: 24px; overflow: hidden; border: 1px solid var(--line-strong);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 80px -20px rgba(255,80,0,.35);
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+  .stats {
+    position: relative; display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 72px;
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden;
+  }
+  @media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stats div { display: flex; flex-direction: column-reverse; gap: 4px; padding: 20px 24px; border-color: var(--line); border-style: solid; border-width: 0 1px 1px 0; }
+  .stats dd { font-size: 2rem; font-weight: 600; letter-spacing: -0.03em; }
+  .stats dt { color: var(--muted); font-size: .875rem; }
+</style>

@@ -1,0 +1,74 @@
+---
+import Icon from './Icon.astro';
+import { engagement, strengths, languages, interests } from '../data/cv';
+---
+<section id="engagement" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Réalisations, distinctions et engagement</p>
+      <h2 class="h2">Innover, concourir et transmettre</h2>
+      <p class="lead">Distinctions nationales et académiques, programmes de formation technique et partage de connaissances.</p>
+    </div>
+    <ul class="eng">
+      {engagement.map((e) => (
+        <li class="card reveal">
+          <span class="icon-tile"><Icon name={e.icon} /></span>
+          <h3>{e.title}</h3>
+          <p class="meta">{e.meta}</p>
+          <ul class="dot-list">{e.bullets.map((b) => <li>{b}</li>)}</ul>
+        </li>
+      ))}
+    </ul>
+
+    <h3 class="sub reveal">Atouts</h3>
+    <ul class="strengths">
+      {strengths.map((s) => (
+        <li class="reveal">
+          <Icon name={s.icon} class="s-icon" />
+          <h4>{s.title}</h4>
+          <p>{s.text}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="extra">
+      <div class="card reveal">
+        <h3 class="mini">Langues</h3>
+        <ul class="langs">
+          {languages.map((l) => <li><span>{l.name}</span><span class="lvl">{l.level}</span></li>)}
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 class="mini">Centres d'intérêt</h3>
+        <ul class="interests">
+          {interests.map((i) => <li><strong>{i.title}</strong> <span>{i.text}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .eng { display: grid; gap: 16px; }
+  @media (min-width: 1000px) { .eng { grid-template-columns: repeat(3, 1fr); } }
+  .eng h3 { font-size: 1.0625rem; margin-top: 16px; }
+  .meta { color: var(--subtle); font-size: .8125rem; margin: 2px 0 14px; }
+  .eng .dot-list { font-size: .875rem; }
+  .sub { font-size: 1.25rem; margin: 72px 0 20px; }
+  .strengths { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  @media (min-width: 700px) { .strengths { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .strengths { grid-template-columns: repeat(4, 1fr); } }
+  .strengths li { background: var(--surface); padding: 22px; }
+  .strengths :global(.s-icon) { color: var(--accent-text); font-size: 1.25rem; }
+  h4 { font-size: .9375rem; font-weight: 600; margin: 12px 0 6px; }
+  .strengths p { color: var(--muted); font-size: .875rem; }
+  .extra { display: grid; gap: 16px; margin-top: 16px; }
+  @media (min-width: 900px) { .extra { grid-template-columns: 1fr 2fr; } }
+  .mini { font-size: 1rem; margin-bottom: 14px; }
+  .langs li { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 0; border-top: 1px solid var(--line); }
+  .lvl { color: var(--muted); font-size: .9rem; }
+  .interests { display: grid; gap: 12px; }
+  @media (min-width: 640px) { .interests { grid-template-columns: 1fr 1fr; } }
+  .interests strong { display: block; font-weight: 500; font-size: .9375rem; }
+  .interests span { color: var(--muted); font-size: .875rem; }
+</style>

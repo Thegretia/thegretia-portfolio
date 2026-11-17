@@ -1,0 +1,39 @@
+---
+import { experiences } from '../data/cv';
+---
+<section id="parcours" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Parcours</p>
+      <h2 class="h2">Expériences professionnelles</h2>
+      <p class="lead">Du pilotage d'architectures Data &amp; IA primées chez Orange Cameroun à la conception de solutions et programmes techniques chez Gemula et en milieu hospitalier.</p>
+    </div>
+    <ol class="timeline">
+      {experiences.map((x, i) => (
+        <li class:list={['item reveal', { first: i === 0 }]}>
+          <div class="meta">
+            <span class="date">{x.date}</span>
+            <span class="place">{x.place}</span>
+          </div>
+          <div class="body">
+            <h3>{x.title} <span class="org">· {x.org}</span></h3>
+            <ul class="dot-list">{x.bullets.map((b) => <li>{b}</li>)}</ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline { border-top: 1px solid var(--line); }
+  .item { display: grid; gap: 8px 40px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 900px) { .item { grid-template-columns: 240px 1fr; } }
+  .meta { display: flex; flex-direction: column; gap: 2px; }
+  .date { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .first .date { color: var(--accent-text); }
+  .place { color: var(--subtle); font-size: .875rem; }
+  h3 { font-size: 1.125rem; margin-bottom: 12px; }
+  .org { color: var(--muted); font-weight: 500; }
+  .dot-list { font-size: .95rem; }
+</style>

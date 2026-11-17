@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/gemula/gemula-logo.png';
+import { gemula, identity } from '../data/cv';
+---
+<section id="gemula" class="section">
+  <div class="container">
+    <div class="panel reveal">
+      <div class="decor glow-top" aria-hidden="true"></div>
+      <div class="intro">
+        <Image src={logo} alt="Logo Gemula" height={56} class="logo" />
+        <p class="eyebrow">{gemula.roleLabel}</p>
+        <h2 class="h2">AI Solutions &amp; Data Engineer chez <span class="accent">Gemula</span>.<br /><span class="text-gradient">{gemula.tagline}</span></h2>
+        <p class="lead">{gemula.intro}</p>
+        <ul class="tags domains">{gemula.domains.map((d) => <li class="tag">{d}</li>)}</ul>
+        <a href={identity.gemula} class="link-arrow" target="_blank" rel="noopener">Visiter gemula.org <Icon name="arrow_up_right" /></a>
+      </div>
+      <ul class="highlights">
+        {gemula.highlights.map((h) => (
+          <li class="card">
+            <span class="icon-tile"><Icon name={h.icon} /></span>
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .panel {
+    position: relative; overflow: hidden; display: grid; gap: 40px;
+    border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: 28px;
+  }
+  @media (min-width: 1000px) { .panel { grid-template-columns: 1fr 1.1fr; padding: 48px; gap: 48px; } }
+  .decor { position: absolute; inset: 0; pointer-events: none; }
+  .intro, .highlights { position: relative; }
+  .intro :global(.logo) { width: auto; height: 56px; margin-bottom: 24px; }
+  .domains { margin: 24px 0 28px; }
+  .highlights { display: grid; gap: 12px; }
+  @media (min-width: 640px) { .highlights { grid-template-columns: 1fr 1fr; } }
+  .highlights .card { background: var(--bg); padding: 20px; }
+  .highlights h3 { font-size: 1rem; margin: 14px 0 6px; }
+  .highlights p { color: var(--muted); font-size: .9rem; }
+</style>

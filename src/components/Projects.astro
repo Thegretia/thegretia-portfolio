@@ -1,0 +1,119 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { projects, domains, otherWork } from '../data/cv';
+---
+<section id="projets" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Projets techniques</p>
+      <h2 class="h2">Du pipeline de données au modèle prédictif et à la mise en production</h2>
+      <p class="lead">Projets de référence menés en entreprise, en compétition nationale et au sein du collectif Gemula.</p>
+    </div>
+
+    <div class="filters reveal" role="group" aria-label="Filtrer les projets par domaine">
+      {domains.map((d, i) => (
+        <button type="button" class="filter" data-filter={d.id} aria-pressed={i === 0 ? 'true' : 'false'}>{d.label}</button>
+      ))}
+    </div>
+
+    <ul class="grid">
+      {projects.map((p) => (
+        <li class:list={['project card reveal', { featured: p.featured }]} data-domain={p.domain}>
+          {p.image ? (
+            <div class="thumb"><Image src={p.image} alt={`Capture du projet ${p.name}`} width={720} height={420} /></div>
+          ) : (
+            <div class="thumb thumb-empty grid-pattern"><span class="icon-tile big"><Icon name={p.icon} /></span></div>
+          )}
+          <div class="content">
+            <p class="kind">{p.kind}</p>
+            <h3>{p.name}</h3>
+            <p class="desc">{p.desc}</p>
+            <ul class="tags">{p.stack.map((s) => <li class="tag">{s}</li>)}</ul>
+            {(p.repo || p.live) && (
+              <div class="links">
+                {p.repo && <a href={p.repo} target="_blank" rel="noopener"><Icon name="github" /> Code</a>}
+                {p.live && <a href={p.live} target="_blank" rel="noopener"><Icon name="open_in_new" /> Voir</a>}
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div class="others reveal">
+      <h3 class="others-title">Autres réalisations et dépôts publics</h3>
+      <ul class="others-list">
+        {otherWork.map((w) => (
+          <li>
+            <a href={w.href} target="_blank" rel="noopener" class="other card-hover">
+              <span><strong>{w.name}</strong><span class="other-text">{w.text}</span></span>
+              <Icon name="arrow_up_right" class="arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .filter {
+    min-height: 36px; padding: 6px 14px; border-radius: 999px; font: inherit; font-size: .875rem; font-weight: 500;
+    background: var(--surface); color: var(--muted); border: 1px solid var(--line); cursor: pointer; transition: .15s;
+  }
+  .filter:hover { color: var(--fg); border-color: var(--line-strong); }
+  .filter[aria-pressed='true'] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+  .grid { display: grid; gap: 16px; }
+  @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1100px) { .featured { grid-column: span 1; } }
+  .project { display: flex; flex-direction: column; padding: 0; overflow: hidden; transition: border-color .15s; }
+  .project:hover { border-color: var(--line-strong); }
+  .project[hidden] { display: none; }
+  .thumb { aspect-ratio: 12 / 7; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+  .project:hover .thumb img { transform: scale(1.03); }
+  .thumb-empty { display: grid; place-items: center; }
+  .grid-pattern {
+    background-color: var(--surface-2);
+    background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .big { width: 56px; height: 56px; font-size: 1.6rem; border-radius: 14px; }
+  .content { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px 22px; flex: 1; }
+  .kind { font-size: .8125rem; font-weight: 500; color: var(--accent-text); }
+  h3 { font-size: 1.125rem; }
+  .desc { color: var(--muted); font-size: .9rem; flex: 1; }
+  .links { display: flex; gap: 16px; padding-top: 6px; }
+  .links a { display: inline-flex; align-items: center; gap: 6px; font-size: .875rem; font-weight: 500; color: var(--fg); }
+  .links a:hover { color: var(--accent-text); }
+
+  .others { margin-top: 56px; }
+  .others-title { font-size: 1.25rem; margin-bottom: 16px; }
+  .others-list { display: grid; gap: 8px; }
+  @media (min-width: 800px) { .others-list { grid-template-columns: 1fr 1fr; } }
+  .other {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; height: 100%;
+    padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+  }
+  .other strong { display: block; font-weight: 600; }
+  .other-text { display: block; color: var(--muted); font-size: .875rem; margin-top: 2px; }
+  .other :global(.arrow) { color: var(--subtle); margin-top: 4px; }
+  .other:hover :global(.arrow) { color: var(--accent-text); }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const cards = document.querySelectorAll<HTMLElement>('.project');
+  buttons.forEach((btn) => btn.addEventListener('click', () => {
+    const f = btn.dataset.filter;
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    cards.forEach((c) => {
+      c.hidden = f !== 'all' && c.dataset.domain !== f;
+      if (!c.hidden) c.classList.add('visible');
+    });
+  }));
+</script>

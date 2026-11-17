@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Gemula from '../components/Gemula.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Skills from '../components/Skills.astro';
+import Education from '../components/Education.astro';
+import Engagement from '../components/Engagement.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base>
+  <a href="#main" class="skip">Aller au contenu</a>
+  <Nav />
+  <main id="main">
+    <Hero />
+    <Gemula />
+    <Experience />
+    <Projects />
+    <Skills />
+    <Education />
+    <Engagement />
+    <Contact />
+  </main>
+  <Footer />
+</Base>
+
+<style is:global>
+  .skip { position: absolute; left: 16px; top: -100px; z-index: 100; padding: 10px 14px; border-radius: 8px; background: var(--fg); color: var(--bg); font-weight: 500; }
+  .skip:focus { top: 12px; }
+</style>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>

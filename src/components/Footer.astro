@@ -1,0 +1,16 @@
+---
+import { identity } from '../data/cv';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container inner">
+    <p>© {year} {identity.fullName}</p>
+    <p>AI Solutions &amp; Data Engineer chez <a href={identity.gemula} class="accent">Gemula</a> · Site construit avec Astro</p>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--subtle); font-size: .875rem; }
+  .inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+  a:hover { text-decoration: underline; text-underline-offset: 4px; }
+</style>

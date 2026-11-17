@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Patrick Thomas MBONJO ETIA · Data & AI Engineer, AI Solutions & Data Engineer chez Gemula',
+  description = "Portfolio de MBONJO ETIA Patrick Thomas, Ingénieur Données & Intelligence Artificielle (Data & AI Engineer) à Douala et AI Solutions & Data Engineer chez Gemula : pipelines de données, modèles prédictifs, agents IA générative, projets et CV.",
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'MBONJO ETIA Patrick Thomas',
+  jobTitle: 'AI Solutions & Data Engineer',
+  url: canonical.href,
+  address: { '@type': 'PostalAddress', addressLocality: 'Douala', addressCountry: 'CM' },
+  worksFor: { '@type': 'Organization', name: 'Gemula', url: 'https://gemula.org' },
+  sameAs: [
+    'https://www.linkedin.com/in/patrick-mbonjo-etia-46b99b328/',
+    'https://github.com/Thegretia',
+    'https://gemula.org',
+  ],
+};
+---
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>document.documentElement.classList.remove('no-js');</script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#08090A" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import { identity } from '../data/cv';
+const channels = [
+  { icon: 'mail', label: 'Email', value: identity.email, href: `mailto:${identity.email}` },
+  ...identity.phones.map((p) => ({ icon: 'phone', label: 'Téléphone', value: p.label, href: p.href })),
+  { icon: 'linkedin', label: 'LinkedIn', value: 'patrick-mbonjo-etia', href: identity.linkedin, external: true },
+  { icon: 'github', label: 'GitHub', value: 'Thegretia', href: identity.github, external: true },
+  { icon: 'globe', label: 'Gemula', value: 'gemula.org', href: identity.gemula, external: true },
+];
+---
+<section id="contact" class="section">
+  <div class="decor glow-top" aria-hidden="true"></div>
+  <div class="container inner">
+    <div class="reveal">
+      <p class="eyebrow">Contact</p>
+      <h2 class="h2">Travaillons <span class="text-gradient">ensemble</span>.</h2>
+      <p class="lead">{identity.seeking} Je réponds aussi aux propositions de collaboration et de formation avec Gemula.</p>
+      <div class="cta">
+        <a href={`mailto:${identity.email}`} class="btn btn-primary"><Icon name="mail" /> M'écrire</a>
+        <a href={identity.cv} class="btn btn-ghost" download><Icon name="download" /> Télécharger le CV (PDF)</a>
+      </div>
+    </div>
+    <ul class="channels reveal">
+      {channels.map((c) => (
+        <li>
+          <a href={c.href} class="channel" {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+            <span class="icon-tile"><Icon name={c.icon} /></span>
+            <span class="txt"><span class="lbl">{c.label}</span><span class="val">{c.value}</span></span>
+            <Icon name="arrow_up_right" class="arrow" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .decor { position: absolute; inset: 0; pointer-events: none; }
+  .inner { position: relative; display: grid; gap: 48px; align-items: start; }
+  @media (min-width: 1000px) { .inner { grid-template-columns: 1fr 1fr; gap: 64px; } }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .channels { display: grid; gap: 8px; }
+  .channel {
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--surface); transition: .15s;
+  }
+  .channel:hover { background: var(--surface-2); border-color: var(--line-strong); }
+  .txt { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .lbl { font-size: .8125rem; color: var(--subtle); }
+  .val { font-weight: 500; overflow-wrap: anywhere; }
+  .channel :global(.arrow) { color: var(--subtle); }
+  .channel:hover :global(.arrow) { color: var(--accent-text); }
+</style>

@@ -1,0 +1,88 @@
+---
+import Icon from './Icon.astro';
+import { identity } from '../data/cv';
+const links = [
+  { id: 'gemula', label: 'Gemula' },
+  { id: 'parcours', label: 'Parcours' },
+  { id: 'projets', label: 'Projets' },
+  { id: 'competences', label: 'Compétences' },
+  { id: 'formation', label: 'Formation' },
+  { id: 'engagement', label: 'Engagement' },
+  { id: 'contact', label: 'Contact' },
+];
+---
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Accueil">
+      <span class="mono" aria-hidden="true">{identity.initials}</span>
+      <span class="brand-name">{identity.firstName}</span>
+    </a>
+    <nav id="nav-links" class="links" aria-label="Navigation principale">
+      {links.map((l) => <a href={`#${l.id}`} data-section={l.id}>{l.label}</a>)}
+    </nav>
+    <div class="actions">
+      <a href={identity.cv} class="btn btn-primary btn-sm" download><Icon name="download" /> CV</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Ouvrir le menu">
+        <Icon name="menu" class="open" /><Icon name="close" class="close" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed; inset: 0 0 auto; z-index: 50;
+    background: rgba(8, 9, 10, 0.72); backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; }
+  .mono {
+    display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px;
+    background: var(--accent); color: var(--bg); font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 600;
+  }
+  .links { display: flex; gap: 4px; margin-left: auto; }
+  .links a { padding: 8px 10px; border-radius: 8px; font-size: .875rem; color: var(--muted); transition: color .15s, background-color .15s; }
+  .links a:hover { color: var(--fg); }
+  .links a.active { color: var(--fg); background: var(--surface-2); }
+  .actions { display: flex; align-items: center; gap: 8px; }
+  .btn-sm { min-height: 36px; padding: 8px 12px; font-size: .875rem; }
+  .menu-btn { display: none; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg); font-size: 1.2rem; cursor: pointer; align-items: center; justify-content: center; }
+  .menu-btn :global(.close) { display: none; }
+  .menu-btn[aria-expanded='true'] :global(.open) { display: none; }
+  .menu-btn[aria-expanded='true'] :global(.close) { display: inline-block; }
+
+  @media (max-width: 1023px) {
+    .actions { margin-left: auto; }
+    .menu-btn { display: inline-flex; }
+    .links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0; margin: 0;
+      flex-direction: column; padding: 12px 16px 20px; background: var(--bg); border-bottom: 1px solid var(--line);
+    }
+    .links.open { display: flex; }
+    .links a { padding: 12px; font-size: 1rem; }
+  }
+  @media (max-width: 380px) { .brand-name { display: none; } }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn')!;
+  const menu = document.getElementById('nav-links')!;
+  const setOpen = (open: boolean) => {
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  };
+  btn.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+
+  // Lien actif selon la section visible
+  const navLinks = menu.querySelectorAll<HTMLAnchorElement>('a');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.dataset.section === e.target.id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach((s) => spy.observe(s));
+</script>

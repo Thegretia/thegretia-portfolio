@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+import { education, certifications } from '../data/cv';
+---
+<section id="formation" class="section">
+  <div class="container cols">
+    <div>
+      <div class="section-head reveal">
+        <p class="eyebrow">Diplômes et formations</p>
+        <h2 class="h2">Formation</h2>
+      </div>
+      <ol class="edu">
+        {education.map((e) => (
+          <li class:list={['card reveal', { current: e.current }]}>
+            <div class="row">
+              <h3>{e.title}</h3>
+              {e.current && <span class="now">En cours</span>}
+            </div>
+            <p class="school">{e.school} · <span class="date">{e.date}</span></p>
+            {e.details && <ul class="dot-list details">{e.details.map((d) => <li>{d}</li>)}</ul>}
+          </li>
+        ))}
+      </ol>
+    </div>
+    <div>
+      <div class="section-head reveal">
+        <p class="eyebrow">Licences et certifications</p>
+        <h2 class="h2">Certifications</h2>
+      </div>
+      <ul class="certs reveal">
+        {certifications.map((c) => (
+          <li>
+            <Icon name="check_circle" class="ok" />
+            <span><strong>{c.title}</strong><span class="by">{c.org} · {c.date}</span></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cols { display: grid; gap: 64px; }
+  @media (min-width: 1000px) { .cols { grid-template-columns: 1.25fr 1fr; gap: 56px; } }
+  .section-head { margin-bottom: 28px; }
+  .edu { display: grid; gap: 12px; }
+  .edu .card { padding: 20px 22px; }
+  .current { border-color: rgba(255,80,0,.35); background: linear-gradient(180deg, var(--accent-soft), var(--surface) 70%); }
+  .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  h3 { font-size: 1rem; }
+  .now { flex-shrink: 0; font-size: .75rem; font-weight: 600; color: var(--accent-text); border: 1px solid rgba(255,80,0,.35); border-radius: 999px; padding: 2px 8px; }
+  .school { color: var(--muted); font-size: .875rem; margin-top: 4px; }
+  .date { color: var(--subtle); }
+  .details { margin-top: 12px; font-size: .875rem; }
+  .certs { border-top: 1px solid var(--line); }
+  .certs li { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
+  .certs :global(.ok) { color: var(--success); margin-top: 3px; }
+  .certs strong { font-weight: 500; }
+  .by { display: block; color: var(--subtle); font-size: .8125rem; margin-top: 2px; }
+</style>

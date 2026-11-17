@@ -1,74 +1,84 @@
-# Thegretia — Developer Portfolio Web Application
+# Portfolio · Patrick Thomas MBONJO ETIA
 
-Production-ready developer portfolio for **Patrick Thomas MBONJO ETIA (Thegretia / thegreatia)**: Data Engineer, AI & Machine Learning Engineer, and Python Software Architect.
+<div align="center">
 
----
+![Astro](https://img.shields.io/badge/Astro-7-FF5000)
+![Vercel](https://img.shields.io/badge/Vercel-en_ligne-success)
+![Mise à jour](https://img.shields.io/badge/Mise_à_jour-Novembre_2026-blue)
+![Licence](https://img.shields.io/badge/Licence-MIT-green)
 
-## 🛠️ Tech Stack
+**Ingénieur Données & Intelligence Artificielle (Data & AI Engineer) · AI Solutions & Data Engineer chez [Gemula](https://gemula.org)**
 
-- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
-- **Language**: TypeScript (Strict Mode)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) (Minimalist Dark Tech Linear/Vercel Aesthetic)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Utility**: `clsx` & `tailwind-merge`
-- **Deployment**: Zero-configuration deployment on [Vercel](https://vercel.com/)
+[Site en ligne](https://thegretia-portfolio.vercel.app/) •
+[Télécharger le CV](https://thegretia-portfolio.vercel.app/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf) •
+[LinkedIn](https://www.linkedin.com/in/patrick-mbonjo-etia-46b99b328/) •
+[Contact](mailto:thomsp2001@gmail.com)
 
----
+</div>
 
-## 📐 Architecture & Pages
+## Présentation
 
-- `/` — **Hero & Engineering Matrix**: Impact pitch, tech competency breakdown, featured case studies, and latest architecture insights.
-- `/projects` — **Projects & Systems Directory**: Interactive category filtering (`All`, `Data Engineering`, `AI & ML`, `Software Engineering`).
-- `/projects/[slug]` — **Deep Dive Case Studies**:
-  - *Akilang Speech & Translation Engine* (ASR/NLP, PyTorch, LoRA, INT8 ONNX, FastAPI)
-  - *Cloud-Scale Lakehouse ETL Pipeline* (Azure Databricks, PySpark, Delta Lake, dbt)
-  - *Real-Time Streaming Fraud Detection Engine* (Kafka, PySpark Streaming, Redis, XGBoost)
-  - *Distributed Python Async Task Engine* (Asyncio, Redis Streams, OpenTelemetry)
-- `/blog` & `/blog/[slug]` — **Technical Blog**: In-depth articles covering Lakehouse partition tuning, low-latency ONNX model serving, and fault-tolerant Python microservices.
-- `/about` — **Background & Track Record**: Engineering philosophy, timeline milestones, and categorized skill matrix.
-- `/contact` — **Interactive Contact Channel**: Validated contact form and direct channels.
-- `/api/newsletter` — **Newsletter API**: Validated email subscription endpoint ready for Supabase / Resend / Brevo.
-- `/api/contact` — **Contact Form API**: Asynchronous message dispatch handler.
+Portfolio personnel d'un élève-ingénieur en Master Recherche Sciences des Données & IA à l'ENSP de Douala et **AI Solutions & Data Engineer** au sein du collectif [Gemula](https://gemula.org). Le site présente mon parcours, mes expériences (Orange Cameroun – lauréat national Orange Summer Challenge 2026 avec Kiyanza, Gemula, Hôpital Général de Douala), mes projets techniques, mes compétences et mon CV.
 
----
+Sections du site : En-tête · Gemula · Parcours · Projets (avec filtres par domaine et autres réalisations) · Compétences · Formation et certifications · Engagement, distinctions et atouts · Contact.
 
-## 🚀 Getting Started
+## Stack technique
 
-### 1. Install Dependencies
+- [Astro](https://astro.build) : site statique ultra-léger, zéro dépendance superflue
+- Charte graphique de Gemula : fond sombre `#08090A`, surfaces `#0F1011` / `#151618` / `#1C1D20`, accent orange `#FF5000`, polices Inter et Poppins hébergées localement
+- Icônes SVG intégrées (`src/components/Icon.astro`), aucune ressource externe (ni Google Fonts, ni Font Awesome)
+- Images optimisées et servies en WebP par `astro:assets` (`<Image>`)
+- TypeScript léger : menu mobile accessible, filtres de projets par domaine, animations d'apparition respectant `prefers-reduced-motion`
+- Sitemap (`@astrojs/sitemap`), balises canonical / Open Graph et données structurées JSON-LD (`Person`) pour le référencement
+
+## Mettre le site à jour
+
+Tout le contenu est repris fidèlement du CV et centralisé dans **`src/data/cv.ts`** : identité, chiffres clés, Gemula, expériences, projets, compétences, formations, certifications, réalisations/engagement, atouts, langues et centres d'intérêt. Il suffit de modifier ce fichier pour mettre tout le site à jour.
+
+- **Ajouter ou modifier un projet** : éditer le tableau `projects` ou `otherWork` dans `src/data/cv.ts` (en plaçant l'éventuelle capture en minuscules et sans espaces dans `src/assets/`).
+- **Remplacer le CV** : remplacer le fichier `public/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf` en conservant le même nom.
+
+## Développement local
+
+Prérequis : Node.js `>=22.23.4`.
+
 ```bash
 npm install
+npm run dev      # lance le serveur local sur http://localhost:4321
+npm run build    # génère le site statique dans dist/
+npm run preview  # prévisualise le site construit
 ```
 
-### 2. Run Local Development Server
-```bash
-npm run dev
+## Structure
+
+```text
+src/
+  data/cv.ts          ← tout le contenu du site (unique source de vérité)
+  components/         ← une section du site par composant Astro
+  layouts/Base.astro  ← balises <head>, préchargement des polices, SEO et JSON-LD
+  assets/             ← photo de profil, captures de projets, logo officiel Gemula
+  styles/global.css   ← charte graphique Gemula en variables CSS natives
+public/
+  documents/          ← CV téléchargeable en PDF
+  fonts/              ← polices Inter et Poppins (WOFF2)
+vercel.json           ← configuration du build Astro et redirections
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Déploiement
 
-### 3. Build for Production
-```bash
-npm run build
-```
+Le site est hébergé sur **Vercel** : https://thegretia-portfolio.vercel.app/
 
----
+- Un push sur `main` déploie automatiquement la version en production ; les autres branches génèrent un aperçu (Preview Deployment).
+- `vercel.json` configure explicitement Astro (`"framework": "astro"`, `"outputDirectory": "dist"`, `"buildCommand": "npm run build"`) et redirige les anciennes routes ainsi que les anciens liens de CV vers `/documents/CV_MBONJO_ETIA_Patrick_Thomas.pdf`.
 
-## 🌐 Deployment to Vercel
+## Contact
 
-1. Push this repository to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: complete production-ready thegretia developer portfolio"
-   git remote add origin https://github.com/thegreatia/portfolio.git
-   git push -u origin main
-   ```
-2. Import the repository into [Vercel](https://vercel.com/new).
-3. The framework preset will automatically detect Next.js with zero manual configuration required.
-4. Click **Deploy**.
+- **Email** : [thomsp2001@gmail.com](mailto:thomsp2001@gmail.com)
+- **Téléphone** : +237 6 94 41 60 81
+- **LinkedIn** : [patrick-mbonjo-etia](https://www.linkedin.com/in/patrick-mbonjo-etia-46b99b328/)
+- **GitHub** : [@Thegretia](https://github.com/Thegretia)
+- **Gemula** : [gemula.org](https://gemula.org)
 
----
+## Licence
 
-## 📜 License
-
-Copyright © Patrick Thomas MBONJO ETIA (Thegretia). All rights reserved.
+Code sous licence MIT. Le contenu (textes, photo, CV) reste personnel.
